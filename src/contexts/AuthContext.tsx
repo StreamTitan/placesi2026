@@ -1,14 +1,13 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '../lib/supabase';
 import type { Database } from '../lib/database.types';
 
 type Profile = Database['public']['Tables']['profiles']['Row'];
 
 interface AuthContextType {
-  user: User | null;
+  user: any | null;
   profile: Profile | null;
-  session: Session | null;
+  session: any | null;
   loading: boolean;
   signUp: (
     email: string,
