@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Placesi Design System Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Copy of design system from index.css */
+    :root {
+      --color-primary-500: #0EA5E9;
+      --color-accent-500: #F59E0B;
+      --color-success: #10B981;
+      --color-warning: #F59E0B;
+      --color-error: #EF4444;
+      
+      --bg: #000000;
+      --bg-elevated: #0A0A0A;
+      --bg-input: #1A1A1A;
+      --text: #FFFFFF;
+      --text-muted: #888888;
+      --border: #2A2A2A;
+      
+      --font-family-primary: 'Inter', sans-serif;
+      
+      --radius-xl: 1rem;
+      --radius-full: 9999px;
+      
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      
+      --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    [data-theme="light"] {
+      --bg: #FAFAFA;
+      --bg-elevated: #FFFFFF;
+      --bg-input: #FFFFFF;
+      --text: #1A1A1A;
+      --text-muted: #6B6B6B;
+      --border: #E5E5EA;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: var(--font-family-primary);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem;
+      transition: all var(--transition-normal);
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--color-accent-500), var(--color-primary-500));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-top: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    
+    .section {
+      margin-bottom: 4rem;
+    }
+    
+    .description {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      font-size: 1.125rem;
+    }
+    
+    /* Property Card Preview */
+    .property-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      transition: all var(--transition-normal);
+      cursor: pointer;
+      max-width: 350px;
+    }
+    
+    .property-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-2xl);
+      border-color: var(--color-primary-500);
+    }
+    
+    .property-card-image {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+    }
+    
+    .property-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .property-card:hover .property-card-image img {
+      transform: scale(1.05);
+    }
+    
+    .property-card-badge {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .property-card-favorite {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      width: 36px;
+      height: 36px;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      border: none;
+      color: white;
+    }
+    
+    .property-card-favorite:hover {
+      background: rgba(239, 68, 68, 0.9);
+      transform: scale(1.1);
+    }
+    
+    .property-card-content {
+      padding: 1.25rem;
+    }
+    
+    .property-card-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    
+    .property-card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+    
+    .property-card-location {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin-bottom: 1rem;
+    }
+    
+    .property-card-features {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+    
+    .property-card-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    
+    /* Grid */
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+    
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-family: var(--font-family-primary);
+      font-size: 1rem;
+      font-weight: 500;
+      border: none;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      margin: 0.5rem;
+    }
+    
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .btn-accent {
+      background: var(--color-accent-500);
+      color: #000000;
+    }
+    
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      width: 44px;
+      height: 44px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .theme-toggle:hover {
+      background: var(--bg-input);
+      transform: scale(1.05);
+    }
+    
+    /* Stat Card */
+    .stat-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      transition: all var(--transition-normal);
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .stat-card-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--bg-input);
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+    
+    .stat-card-value {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+    
+    .stat-card-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    
+    /* Search */
+    .search-input {
+      width: 100%;
+      max-width: 600px;
+      padding: 1rem 1.5rem;
+      background: var(--bg-input);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-full);
+      font-size: 1.125rem;
+      color: var(--text);
+      transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: var(--color-primary-500);
+      box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+    }
+    
+    /* Filter Chips */
+    .filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    
+    .filter-chip {
+      padding: 0.5rem 1rem;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      color: var(--text-muted);
+    }
+    
+    .filter-chip:hover, .filter-chip.active {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+    🌓
+  </button>
+  
+  <div class="container">
+    <h1>Placesi Design System</h1>
+    <p class="description">
+      Professional real estate platform design for Trinidad & Tobago market. 
+      Inspired by agency-agents best practices with mobile-first responsive design.
+    </p>
+    
+    <!-- Property Cards Section -->
+    <div class="section">
+      <h2>🏠 Enhanced Property Cards</h2>
+      <p class="description">
+        Modern property cards with smooth animations, clear visual hierarchy, and mobile responsiveness.
+      </p>
+      
+      <div class="grid">
+        <div class="property-card">
+          <div class="property-card-image">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800" alt="Modern House">
+            <div class="property-card-badge">For Sale</div>
+            <button class="property-card-favorite" onclick="event.stopPropagation()">
+              ♡
+            </button>
+          </div>
+          <div class="property-card-content">
+            <div class="property-card-price">$1,250,000 TTD</div>
+            <h3 class="property-card-title">Modern Luxury Villa with Ocean View</h3>
+            <div class="property-card-location">
+              📍 Maraval, Trinidad
+            </div>
+            <div class="property-card-features">
+              <div class="property-card-feature">🛏️ 4 Beds</div>
+              <div class="property-card-feature">🛁 3 Baths</div>
+              <div class="property-card-feature">📐 3,200 sqft</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="property-card">
+          <div class="property-card-image">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800" alt="Beach House">
+            <div class="property-card-badge">For Rent</div>
+            <button class="property-card-favorite" onclick="event.stopPropagation()">
+              ♡
+            </button>
+          </div>
+          <div class="property-card-content">
+            <div class="property-card-price">$8,500 TTD<span style="font-size: 0.875rem; font-weight: 400; color: var(--text-muted);">/month</span></div>
+            <h3 class="property-card-title">Beachfront Apartment in Tobago</h3>
+            <div class="property-card-location">
+              📍 Crown Point, Tobago
+            </div>
+            <div class="property-card-features">
+              <div class="property-card-feature">🛏️ 2 Beds</div>
+              <div class="property-card-feature">🛁 2 Baths</div>
+              <div class="property-card-feature">📐 1,400 sqft</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="property-card">
+          <div class="property-card-image">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800" alt="Family Home">
+            <div class="property-card-badge">For Sale</div>
+            <button class="property-card-favorite" onclick="event.stopPropagation()">
+              ♡
+            </button>
+          </div>
+          <div class="property-card-content">
+            <div class="property-card-price">$950,000 TTD</div>
+            <h3 class="property-card-title">Spacious Family Home with Pool</h3>
+            <div class="property-card-location">
+              📍 Westmoorings, Trinidad
+            </div>
+            <div class="property-card-features">
+              <div class="property-card-feature">🛏️ 5 Beds</div>
+              <div class="property-card-feature">🛁 4 Baths</div>
+              <div class="property-card-feature">📐 4,500 sqft</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Dashboard Stats Section -->
+    <div class="section">
+      <h2>📊 Dashboard Stats</h2>
+      <p class="description">
+        Professional dashboard metrics with trend indicators and responsive grid layout.
+      </p>
+      
+      <div class="grid">
+        <div class="stat-card">
+          <div class="stat-card-icon">🏠</div>
+          <div class="stat-card-value">12</div>
+          <div class="stat-card-label">Total Properties</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-card-icon">👁️</div>
+          <div class="stat-card-value">1,247</div>
+          <div class="stat-card-label">Total Views</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-card-icon">👥</div>
+          <div class="stat-card-value">28</div>
+          <div class="stat-card-label">Total Leads</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-card-icon">📈</div>
+          <div class="stat-card-value">94%</div>
+          <div class="stat-card-label">Response Rate</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Search Interface Section -->
+    <div class="section">
+      <h2>🔍 Search Interface</h2>
+      <p class="description">
+        Professional search experience with rounded design and quick filter chips.
+      </p>
+      
+      <input 
+        type="text" 
+        class="search-input" 
+        placeholder="Search for properties in Trinidad & Tobago..."
+      >
+      
+      <div class="filter-chips">
+        <button class="filter-chip active">All Islands</button>
+        <button class="filter-chip">Trinidad</button>
+        <button class="filter-chip">Tobago</button>
+        <button class="filter-chip">For Sale</button>
+        <button class="filter-chip">For Rent</button>
+      </div>
+    </div>
+    
+    <!-- Buttons Section -->
+    <div class="section">
+      <h2>🎨 Button System</h2>
+      <p class="description">
+        Versatile button components with hover animations and multiple variants.
+      </p>
+      
+      <div>
+        <button class="btn btn-primary">Primary Button</button>
+        <button class="btn btn-accent">Accent Button</button>
+        <button class="btn" style="background: var(--bg-input); color: var(--text); border: 1px solid var(--border);">Secondary Button</button>
+      </div>
+    </div>
+    
+    <!-- Responsive Grid Section -->
+    <div class="section">
+      <h2>📱 Mobile Responsive</h2>
+      <p class="description">
+        <strong>Try it!</strong> Resize your browser window to see the responsive design in action:
+      </p>
+      <ul style="color: var(--text-muted); margin-left: 1.5rem; margin-bottom: 2rem;">
+        <li><strong>Mobile (320-639px)</strong>: Single column layout, full-width cards</li>
+        <li><strong>Tablet (640-1023px)</strong>: 2 columns, optimized spacing</li>
+        <li><strong>Desktop (1024px+)</strong>: 3-4 columns, maximum content width</li>
+      </ul>
+      
+      <div class="grid" style="background: var(--bg-elevated); padding: 2rem; border-radius: var(--radius-xl); border: 1px solid var(--border);">
+        <div style="background: var(--bg-input); padding: 2rem; border-radius: var(--radius-xl); text-align: center;">Column 1</div>
+        <div style="background: var(--bg-input); padding: 2rem; border-radius: var(--radius-xl); text-align: center;">Column 2</div>
+        <div style="background: var(--bg-input); padding: 2rem; border-radius: var(--radius-xl); text-align: center;">Column 3</div>
+        <div style="background: var(--bg-input); padding: 2rem; border-radius: var(--radius-xl); text-align: center;">Column 4</div>
+      </div>
+    </div>
+    
+    <!-- Theme Toggle Section -->
+    <div class="section">
+      <h2>🌓 Dark/Light Theme</h2>
+      <p class="description">
+        Click the theme toggle button in the top-right corner to switch between dark and light modes. 
+        All colors adapt seamlessly using CSS custom properties.
+      </p>
+    </div>
+    
+    <!-- Design Features Section -->
+    <div class="section">
+      <h2>✨ Key Design Features</h2>
+      <div class="grid">
+        <div class="stat-card">
+          <div class="stat-card-icon">🎨</div>
+          <div class="stat-card-value">60+</div>
+          <div class="stat-card-label">Design Tokens</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-card-icon">📱</div>
+          <div class="stat-card-value">5</div>
+          <div class="stat-card-label">Breakpoints</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-card-icon">♿</div>
+          <div class="stat-card-value">AA</div>
+          <div class="stat-card-label">WCAG Rating</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-card-icon">🚀</div>
+          <div class="stat-card-value">GPU</div>
+          <div class="stat-card-label">Accelerated</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', newTheme);
+    }
+    
+    // Add active state toggle to filter chips
+    document.querySelectorAll('.filter-chip').forEach(chip => {
+      chip.addEventListener('click', function() {
+        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
